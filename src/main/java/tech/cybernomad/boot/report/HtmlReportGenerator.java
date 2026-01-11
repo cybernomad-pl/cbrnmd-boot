@@ -249,7 +249,7 @@ public class HtmlReportGenerator {
         }
         """;
 
-    public void generate(ProjectInfo project, Path outputPath) throws IOException {
+    public String generateString(ProjectInfo project) {
         StringBuilder html = new StringBuilder();
 
         html.append("<!DOCTYPE html>\n");
@@ -261,10 +261,11 @@ public class HtmlReportGenerator {
         html.append("</head>\n<body>\n");
         html.append("<div class=\"container\">\n");
 
-        // Header
+        // Header with back link
         html.append("<header>\n");
-        html.append("<h1>CBRNMD//BOOT<span class=\"sub\">Spring Boot Codebase Analysis</span></h1>\n");
+        html.append("<h1><a href=\"/\" style=\"color:#3fc99a;text-decoration:none;\">CBRNMD//BOOT</a><span class=\"sub\">Spring Boot Codebase Analysis</span></h1>\n");
         html.append("<div class=\"meta\">Project: ").append(escape(project.getProjectName()));
+        html.append(" | Path: ").append(escape(project.getBasePath().toString()));
         html.append(" | Generated: ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         html.append("</div>\n</header>\n");
 
@@ -286,8 +287,7 @@ public class HtmlReportGenerator {
             html.append("<h3>").append(main.getBeanType().getIcon()).append(" ").append(escape(main.getClassName())).append("</h3>\n");
             html.append("<div class=\"package\">").append(escape(main.getPackageName())).append("</div>\n");
             html.append("<div style=\"margin-top:10px; color:#666;\">File: ");
-            html.append("<a href=\"file://").append(main.getFilePath()).append("\" style=\"color:#4a90d9;\">")
-                .append(escape(main.getRelativePath(project.getBasePath()))).append("</a></div>\n");
+            html.append("<span style=\"color:#4a90d9;\">").append(escape(main.getRelativePath(project.getBasePath()))).append("</span></div>\n");
             html.append("</div>\n");
         }
 
@@ -310,7 +310,11 @@ public class HtmlReportGenerator {
 
         html.append("</div>\n</body>\n</html>");
 
-        Files.writeString(outputPath, html.toString());
+        return html.toString();
+    }
+
+    public void generate(ProjectInfo project, Path outputPath) throws IOException {
+        Files.writeString(outputPath, generateString(project));
     }
 
     private String statBox(String value, String label) {

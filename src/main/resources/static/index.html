@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBRNMD//BOOT - Spring Boot Analyzer</title>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #111;
+            color: #3fc99a;
+            font-family: 'Share Tech Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image:
+                linear-gradient(0deg, rgba(63, 201, 154, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(63, 201, 154, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #3fc99a;
+            font-family: inherit;
+            font-size: 16px;
+            padding: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3fc99a;
+        }
+
+        input[type="text"]::placeholder {
+            color: #444;
+        }
+
+        button {
+            background: #3fc99a;
+            color: #111;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            padding: 15px 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #43D079;
+        }
+
+        .hint {
+            color: #444;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .features {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+        }
+
+        .features h3 {
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .features ul {
+            list-style: none;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .features li {
+            margin: 8px 0;
+        }
+
+        .features li span {
+            color: #3fc99a;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CBRNMD//BOOT</h1>
+        <div class="subtitle">Spring Boot Codebase Analyzer</div>
+
+        <form action="/analyze" method="get">
+            <div class="form-group">
+                <label>Ścieżka do projektu</label>
+                <input type="text" name="path" placeholder="/home/user/my-spring-project" required autofocus>
+                <div class="hint">Podaj absolutną ścieżkę do folderu z projektem Spring Boot</div>
+            </div>
+            <button type="submit">Analizuj</button>
+        </form>
+
+        <div class="features">
+            <h3>Wykrywa</h3>
+            <ul>
+                <li><span>◉</span> @SpringBootApplication</li>
+                <li><span>⚙</span> @Configuration + @Bean methods</li>
+                <li><span>◀▶</span> @RestController + mappings</li>
+                <li><span>●</span> @Service</li>
+                <li><span>◆</span> @Repository</li>
+                <li><span>■</span> @Component (+ scope)</li>
+                <li><span>◇</span> @Entity</li>
+                <li><span>⏱</span> @Scheduled</li>
+                <li><span>⚡</span> @EventListener</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
